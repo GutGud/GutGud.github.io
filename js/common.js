@@ -24,10 +24,10 @@ $(function() {
 	});
 
 	$('.scrolling a').click(function(){
-			var name = $(this).attr('href').slice(1)
-			var Top = $('#'+name).offset().top
-			$("html, body").animate({ 'scrollTop' : Top }, 1000)
-			
+		var name = $(this).attr('href').slice(1)
+		var Top = $('#'+name).offset().top
+		$("html, body").animate({ 'scrollTop' : Top }, 1000)
+
 	});
 
 	$(window).scroll(function(){
@@ -76,15 +76,15 @@ $(function() {
 	$('.hiddeb_form_block').css({'marginTop': -HEI})
 	
 	$('.header-button,.feedback_button').click(function() {
-			
-			$('.hiddeb_form_block').animate({'marginTop': 3+'%'}, 1000);
-	
+
+		$('.hiddeb_form_block').animate({'marginTop': 3+'%'}, 1000);
+
 	});
 
 	$('.close_form').click(function() {
 
 		$('.hiddeb_form_block').animate({'marginTop': -HEI}, 1000);
-	
+
 	});
 	getInfor = function(ind, th){
 		var th = th.children();
@@ -95,55 +95,100 @@ $(function() {
 				th.children('.inverse.back').html(result)
 			},
 			error: function(){
-				console.log("Информация отсутсвует")
+				th.children('.inverse.back').html("<div style='color:red;font-size:1.2em;text-align:center;'>Информация отсутсвует</div>")
 			},
 
 		});
 	}
-
+	countFiles = function() {
+		$.ajax({ 
+			url: "/dataInfo/card_a/a2.html", 
+			success: function (data, status) {
+				console.log(data, status)
+			}
+		}) 
+	}
+	//countFiles()
+	
 	getIdCardWind = function(ind){
 		var i = ind[0]
 		$.ajax({
 			url: '/dataInfo/card_'+i+'/'+ind+'.html',
 			data: 'html',
-			success: function(result) {
+			success: function(result, status) {
 				$('.infor_html').html(result)
+				return status
 			},
-			error: function(){
-				$('.infor_html').html("Информация отсутсвует")
-			},
+			error: function(result, status){
+				$('.infor_html').html("<div style='color:red;font-size:2em;text-align:center;'>Информация отсутсвует</div>")
+				return status
+			}
 
 		});
 	}
+	
+
 	$('.colum-main').click( function() {
 		var th = $(this)
 		ind = th.attr('id')
-				th.animate({  rotation: 0 }, {
-					step: function() {
-						var par = th.children('.colum-wrap')
-						par.css('transform','rotateY(180deg)')
-						 par.children('.inverse.back').css('transform','rotateY(180deg)') 
-					},
-					duration: 'slow'},'linear');
-					
-					getInfor(ind, th)
+		th.animate({  rotation: 0 }, {
+			step: function() {
+				var par = th.children('.colum-wrap')
+				par.css('transform','rotateY(180deg)')
+				par.children('.inverse.back').css('transform','rotateY(180deg)') 
+			},
+			duration: 'slow'},'linear');
+
+		getInfor(ind, th)
 	});
+	getIdNeyb = function(ind) {
+		var i = 0
+		$('.card_ind').each(function(){
+			var tch = $(this)
+			var idN = tch.attr('id')
+			if(idN[0] == ind){
+				i++
+			}
+		})
+		return i
+	} 
 	//Для динамически созданных объектов, где ".inverse.back" родитель 
 	//а '.card_ind' сгенерированый или подгруженый объект
 	$(".inverse.back").on('click', '.card_ind', function(){
-		var ths = $(this).attr('id')
+		var ths = $(this)
+		var ind = ths.attr('id')
 		var height = $(window).height()
+		var i = ind[1]
+		var cou = getIdNeyb(ind[0])
 		$('.card_modals').animate({'bottom': 0})
-			getIdCardWind(ths)
-			$('.close_info').on('click', function(){
-				$('.card_modals').animate({'bottom': -height}, 1000)
+		getIdCardWind(ind)
+			$(".arroy_right").click(function() {
+				if(i < cou)
+					i++ 
+				console.log(i)
+				if(i <= cou && i > 0)
+					getIdCardWind(ind.replace(ind[1], i))
+				else
+					getIdCardWind(ind.replace(ind[1], i=0))
 			})
+			$(".arroy_left").click(function() {
+				if(i > 1)
+					i--
+				console.log(i)
+				if(i <= cou && i > 0)
+					getIdCardWind(ind.replace(ind[1], i))
+				else
+					getIdCardWind(ind.replace(ind[1], i=cou))
+			})
+		$('.close_info').on('click', function(){
+			$('.card_modals').animate({'bottom': -height}, 1000)
+		})
 		
 	})
 
 	$('.thumbnail').click(function() {
 
-			$(this).animate({'transform': 'rotate(180deg)'}, 1000)
+		$(this).animate({'transform': 'rotate(180deg)'}, 1000)
 
 	})
 	
