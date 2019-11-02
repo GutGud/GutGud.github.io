@@ -1,6 +1,11 @@
 $(function() {
 	
-	var HEIGHT = $(window).height()
+	$(document).ready(function() {
+		$("#preloader_wrap").delay(2000).fadeOut("slow")
+	})
+	
+	var HEIGHT = $(window).height() + 200
+	console.log(HEIGHT)
 	$('.card_modals').css({'bottom': -HEIGHT})
 
 	$(function($){
@@ -160,12 +165,13 @@ $(function() {
 		var height = $(window).height()
 		var i = ind[1]
 		var cou = getIdNeyb(ind[0])
-		$('.card_modals').animate({'bottom': 0})
+		var wit = $(window).width()
+		if(wit > 760)
+			$('.card_modals').animate({'bottom': 0})
 		getIdCardWind(ind)
 			$(".arroy_right").click(function() {
 				if(i < cou)
 					i++ 
-				console.log(i)
 				if(i <= cou && i > 0)
 					getIdCardWind(ind.replace(ind[1], i))
 				else
@@ -174,7 +180,6 @@ $(function() {
 			$(".arroy_left").click(function() {
 				if(i > 1)
 					i--
-				console.log(i)
 				if(i <= cou && i > 0)
 					getIdCardWind(ind.replace(ind[1], i))
 				else
@@ -191,6 +196,17 @@ $(function() {
 		$(this).animate({'transform': 'rotate(180deg)'}, 1000)
 
 	})
+	// $('.main_preloader').mouseenter(function(){
+	// 	var h = $(window).height() - 270
+	// 	var w = $(window).width() - 270
+	// 	var rh = Math.floor(Math.random() * 10);
+	// 	var rw = Math.floor(Math.random() * 10);
+	// 	rh == 0 ? h = h / rw : h = h / rh
+	// 	rw == 0 ? w = w / rh : w = w / rw
+	// 	$(this).animate({'left': w+'px', 'top': h+'px'}, 100)
+	// 	console.log(rh+' '+rw)
+	// 	console.log(h+' '+w)
+	// })
 	
 
 });
