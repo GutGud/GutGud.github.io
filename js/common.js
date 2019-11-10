@@ -1,11 +1,10 @@
 $(function() {
 	
 	$(document).ready(function() {
-		$("#preloader_wrap").delay(2000).fadeOut("slow")
-	})
+		$("#preloader_wrap").delay(10).fadeOut("slow")
+	});
 	
 	var HEIGHT = $(window).height() + 200
-	console.log(HEIGHT)
 	$('.card_modals').css({'bottom': -HEIGHT})
 
 	$(function($){
@@ -55,10 +54,13 @@ $(function() {
 		var one = $('.section-one').offset().top
 		var two = $('.section-two').offset().top
 		var three = $('.section-three').offset().top
+		var four = $('.section-four').offset().top
 		if (one < top && top < two){
 			$('.top_navi span').css({'background' : '#000'})
 		}else if(two < top && three > top){
 			$('.top_navi span').css({'background' : '#FFF'})
+		}else if(three < top && four > top){	
+			$('.top_navi span').css({'background' : '#000'})
 		}else{
 			$('.top_navi span').css({'background' : '#FFF'})
 		}
@@ -82,7 +84,7 @@ $(function() {
 	
 	$('.header-button,.feedback_button').click(function() {
 
-		$('.hiddeb_form_block').animate({'marginTop': 3+'%'}, 1000);
+		$('.hiddeb_form_block').animate({'marginTop': 4+'%'}, 1000);
 
 	});
 
@@ -105,15 +107,6 @@ $(function() {
 
 		});
 	}
-	countFiles = function() {
-		$.ajax({ 
-			url: "/dataInfo/card_a/a2.html", 
-			success: function (data, status) {
-				console.log(data, status)
-			}
-		}) 
-	}
-	//countFiles()
 	
 	getIdCardWind = function(ind){
 		var i = ind[0]
@@ -132,7 +125,6 @@ $(function() {
 		});
 	}
 	
-
 	$('.colum-main').click( function() {
 		var th = $(this)
 		ind = th.attr('id')
@@ -196,18 +188,16 @@ $(function() {
 		$(this).animate({'transform': 'rotate(180deg)'}, 1000)
 
 	})
-	// $('.main_preloader').mouseenter(function(){
-	// 	var h = $(window).height() - 270
-	// 	var w = $(window).width() - 270
-	// 	var rh = Math.floor(Math.random() * 10);
-	// 	var rw = Math.floor(Math.random() * 10);
-	// 	rh == 0 ? h = h / rw : h = h / rh
-	// 	rw == 0 ? w = w / rh : w = w / rw
-	// 	$(this).animate({'left': w+'px', 'top': h+'px'}, 100)
-	// 	console.log(rh+' '+rw)
-	// 	console.log(h+' '+w)
-	// })
-	
+	$(".advantages-block").waypoint(function(){
+		$(".svg-card-infor").each(function(index){
+			var t = $(this)
+			setTimeout(function(){
+				t.animated('zoomInDown');
+			}, 500*index)
+		})
+		}, {
+		offset : "33%"
+	})
 
 });
 
