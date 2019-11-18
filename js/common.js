@@ -1,7 +1,7 @@
 $(function() {
 	
 	$(document).ready(function() {
-		$("#preloader_wrap").delay(10).fadeOut("slow")
+		$("#preloader_wrap").delay(100).fadeOut("slow")
 	});
 	
 	var HEIGHT = $(window).height() + 200
@@ -50,20 +50,25 @@ $(function() {
 		offset : "33%"
 	});
 	$(window).scroll(function(){
-		var top = $(window).scrollTop() + 50;
-		var one = $('.section-one').offset().top
-		var two = $('.section-two').offset().top
-		var three = $('.section-three').offset().top
-		var four = $('.section-four').offset().top
-		if (one < top && top < two){
-			$('.top_navi span').css({'background' : '#000'})
-		}else if(two < top && three > top){
-			$('.top_navi span').css({'background' : '#FFF'})
-		}else if(three < top && four > top){	
-			$('.top_navi span').css({'background' : '#000'})
-		}else{
-			$('.top_navi span').css({'background' : '#FFF'})
-		}
+		var nameClass = $('header').attr('class');
+		if(nameClass == 'parent'){
+				var top = $(window).scrollTop() + 50;
+				var one = $('.section-one').offset().top
+				var two = $('.section-two').offset().top
+				var three = $('.section-three').offset().top
+				var four = $('.section-four').offset().top
+				if (one < top && top < two){
+					$('.top_navi span').css({'background' : '#000'})
+				}else if(two < top && three > top){
+					$('.top_navi span').css({'background' : '#FFF'})
+				}else if(three < top && four > top){	
+					$('.top_navi span').css({'background' : '#000'})
+				}else{
+					$('.top_navi span').css({'background' : '#FFF'})
+				}
+			}else{
+				stop()
+			}
 	});
 
 	
