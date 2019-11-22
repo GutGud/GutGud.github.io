@@ -50,6 +50,19 @@ $(function() {
 		offset : "33%"
 	});
 	$(window).scroll(function(){
+	var top = $(window).scrollTop()
+	if(top > 1000)	
+		$(".scroll-back-up").css({'display':'block'})
+	else
+		$(".scroll-back-up").css({'display':'none'})
+
+	});
+	$(".scroll-back-up").click(function(){
+		$("body,html").animate({
+			"scrollTop" : '0'}, 1000);
+		return false;
+	});
+	$(window).scroll(function(){
 		var nameClass = $('header').attr('class');
 		if(nameClass == 'parent'){
 				var top = $(window).scrollTop() + 50;
@@ -57,14 +70,17 @@ $(function() {
 				var two = $('.section-two').offset().top
 				var three = $('.section-three').offset().top
 				var four = $('.section-four').offset().top
-				if (one < top && top < two){
-					$('.top_navi span').css({'background' : '#000'})
+				var five = $('.section-five').offset().top
+				if (one > top){
+					$('.top_navi span').css({'background' : '#FFF'})
 				}else if(two < top && three > top){
 					$('.top_navi span').css({'background' : '#FFF'})
 				}else if(three < top && four > top){	
 					$('.top_navi span').css({'background' : '#000'})
-				}else{
+				}else if(four < top && five > top){	
 					$('.top_navi span').css({'background' : '#FFF'})
+				}else{
+					$('.top_navi span').css({'background' : '#000'})
 				}
 			}else{
 				stop()
@@ -202,7 +218,7 @@ $(function() {
 		})
 		}, {
 		offset : "33%"
-	})
+	});
 
 });
 
