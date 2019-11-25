@@ -1,5 +1,11 @@
 $(function() {
-	
+	var userAG = detect.parse(navigator.userAgent);
+	if('IE' == userAG.browser.family){
+		$("body").prepend("<div class='bed_ie'><p>Уважаемые пользователи не пользуйтесь Internet Explorer</p><p>В этом браузере многие сайты отображаются не корректно!</p><p>Пожалуйста пользуйтесь другим браузером, например Google Chrome или Firefox</p><b>click me!</b></div>");
+		$(".bed_ie").click(function(){
+			$(this).css({'display':'none'})
+		})		
+	}
 	$(document).ready(function() {
 		$("#preloader_wrap").delay(100).fadeOut("slow")
 	});
@@ -50,11 +56,11 @@ $(function() {
 		offset : "33%"
 	});
 	$(window).scroll(function(){
-	var top = $(window).scrollTop()
-	if(top > 1000)	
-		$(".scroll-back-up").css({'display':'block'})
-	else
-		$(".scroll-back-up").css({'display':'none'})
+		var top = $(window).scrollTop()
+		if(top > 1000)	
+			$(".scroll-back-up").css({'display':'block'})
+		else
+			$(".scroll-back-up").css({'display':'none'})
 
 	});
 	$(".scroll-back-up").click(function(){
@@ -65,26 +71,26 @@ $(function() {
 	$(window).scroll(function(){
 		var nameClass = $('header').attr('class');
 		if(nameClass == 'parent'){
-				var top = $(window).scrollTop() + 50;
-				var one = $('.section-one').offset().top
-				var two = $('.section-two').offset().top
-				var three = $('.section-three').offset().top
-				var four = $('.section-four').offset().top
-				var five = $('.section-five').offset().top
-				if (one > top){
-					$('.top_navi span').css({'background' : '#FFF'})
-				}else if(two < top && three > top){
-					$('.top_navi span').css({'background' : '#FFF'})
-				}else if(three < top && four > top){	
-					$('.top_navi span').css({'background' : '#000'})
-				}else if(four < top && five > top){	
-					$('.top_navi span').css({'background' : '#FFF'})
-				}else{
-					$('.top_navi span').css({'background' : '#000'})
-				}
+			var top = $(window).scrollTop() + 50;
+			var one = $('.section-one').offset().top
+			var two = $('.section-two').offset().top
+			var three = $('.section-three').offset().top
+			var four = $('.section-four').offset().top
+			var five = $('.section-five').offset().top
+			if (one > top){
+				$('.top_navi span').css({'background' : '#FFF'})
+			}else if(two < top && three > top){
+				$('.top_navi span').css({'background' : '#FFF'})
+			}else if(three < top && four > top){	
+				$('.top_navi span').css({'background' : '#000'})
+			}else if(four < top && five > top){	
+				$('.top_navi span').css({'background' : '#FFF'})
 			}else{
-				stop()
+				$('.top_navi span').css({'background' : '#000'})
 			}
+		}else{
+			stop()
+		}
 	});
 
 	
@@ -152,8 +158,8 @@ $(function() {
 		th.animate({  rotation: 0 }, {
 			step: function() {
 				var par = th.children('.colum-wrap')
-				par.css('transform','rotateY(180deg)')
-				par.children('.inverse.back').css('transform','rotateY(180deg)') 
+						par.css({'transform': 'rotateY(180deg)'})
+						par.children('.inverse.back').css({'transform': 'rotateY(180deg)'}) 
 			},
 			duration: 'slow'},'linear');
 
@@ -182,22 +188,22 @@ $(function() {
 		if(wit > 760)
 			$('.card_modals').animate({'bottom': 0})
 		getIdCardWind(ind)
-			$(".arroy_right").click(function() {
-				if(i < cou)
-					i++ 
-				if(i <= cou && i > 0)
-					getIdCardWind(ind.replace(ind[1], i))
-				else
-					getIdCardWind(ind.replace(ind[1], i=0))
-			})
-			$(".arroy_left").click(function() {
-				if(i > 1)
-					i--
-				if(i <= cou && i > 0)
-					getIdCardWind(ind.replace(ind[1], i))
-				else
-					getIdCardWind(ind.replace(ind[1], i=cou))
-			})
+		$(".arroy_right").click(function() {
+			if(i < cou)
+				i++ 
+			if(i <= cou && i > 0)
+				getIdCardWind(ind.replace(ind[1], i))
+			else
+				getIdCardWind(ind.replace(ind[1], i=0))
+		})
+		$(".arroy_left").click(function() {
+			if(i > 1)
+				i--
+			if(i <= cou && i > 0)
+				getIdCardWind(ind.replace(ind[1], i))
+			else
+				getIdCardWind(ind.replace(ind[1], i=cou))
+		})
 		$('.close_info').on('click', function(){
 			$('.card_modals').animate({'bottom': -height}, 1000)
 		})
@@ -216,7 +222,7 @@ $(function() {
 				t.animated('zoomInDown');
 			}, 500*index)
 		})
-		}, {
+	}, {
 		offset : "33%"
 	});
 
